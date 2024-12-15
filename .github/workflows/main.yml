@@ -34,19 +34,20 @@ jobs:
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           
-          # Debug - List contents to see the structure
-          echo "Current directory contents:"
-          ls -la
-          
           # Create and switch to a new docs branch if it doesn't exist
           git checkout -B docs
           
           # Remove everything except .git directory
           find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
           
-          # Copy only docs content
+          # Debug - List website contents
+          echo "Website directory contents:"
+          ls -la website
+          
+          # Copy only website/docs content
+          git checkout main -- website/docs
           mkdir -p docs
-          cp -r docs/* docs/
+          cp -r website/docs/* docs/
           
           # Force add docs directory
           git add -f docs
