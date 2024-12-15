@@ -15,6 +15,9 @@ permissions:
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
     steps:
       - uses: actions/checkout@v4
         with:
@@ -48,14 +51,14 @@ jobs:
           
       - name: Process notebooks
         run: |
-          python website/process_notebooks.py render
+          python process_notebooks.py render
 
       - name: Deploy to docs branch
         working-directory: .
         run: |
           # Store docs content in a temporary location
           mkdir -p /tmp/docs-content
-          cp -r website/* /tmp/docs-content/
+          cp -r * /tmp/docs-content/
           
           # Configure git
           git config --global user.name 'GitHub Actions'
