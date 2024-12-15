@@ -31,6 +31,11 @@ jobs:
 
       - name: Deploy to docs branch
         run: |
+          # Store website/docs content in a temporary location
+          mkdir -p /tmp/docs-content
+          cp -r website/docs/* /tmp/docs-content/
+          
+          # Configure git
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           
@@ -40,14 +45,9 @@ jobs:
           # Remove everything except .git directory
           find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
           
-          # Debug - List website contents
-          echo "Website directory contents:"
-          ls -la website
-          
-          # Copy only website/docs content
-          git checkout main -- website/docs
+          # Copy the saved docs content back
           mkdir -p docs
-          cp -r website/docs/* docs/
+          cp -r /tmp/docs-content/* docs/
           
           # Force add docs directory
           git add -f docs
