@@ -15,9 +15,6 @@ permissions:
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: website
     steps:
       - uses: actions/checkout@v4
         with:
@@ -57,9 +54,11 @@ jobs:
           # Create and switch to a new docs branch if it doesn't exist
           git checkout -B docs
           
-          # Stage all changes
-          git add -A
+          # Force add all files (including untracked files)
+          git add -f .
           
-          # Commit and push changes
-          git commit -m "Update documentation"
+          # Commit with --allow-empty in case there are no changes
+          git commit -m "Update documentation" --allow-empty
+          
+          # Force push to docs branch
           git push -f origin docs
