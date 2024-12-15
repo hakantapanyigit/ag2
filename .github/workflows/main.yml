@@ -15,9 +15,6 @@ permissions:
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: website
     steps:
       - uses: actions/checkout@v4
         with:
@@ -51,7 +48,7 @@ jobs:
           
       - name: Process notebooks
         run: |
-          python process_notebooks.py render
+          python website/process_notebooks.py render
 
       - name: Deploy to docs branch
         working-directory: .
