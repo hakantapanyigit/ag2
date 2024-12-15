@@ -58,7 +58,7 @@ jobs:
         run: |
           # Store docs content in a temporary location
           mkdir -p /tmp/docs-content
-          cp -r * /tmp/docs-content/
+          cp -r website/* /tmp/docs-content/
           
           # Configure git
           git config --global user.name 'GitHub Actions'
