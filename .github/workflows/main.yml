@@ -42,15 +42,14 @@ jobs:
           # Create and switch to a new docs branch if it doesn't exist
           git checkout -B docs
           
-          # Remove everything except .git directory
-          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          # Remove everything
+          git rm -rf .
           
-          # Copy the saved docs content back
-          mkdir -p docs
-          cp -r /tmp/docs-content/* docs/
+          # Copy the saved docs content directly to root
+          cp -r /tmp/docs-content/* .
           
-          # Force add docs directory
-          git add -f docs
+          # Add all files
+          git add .
           
           # Commit with --allow-empty in case there are no changes
           git commit -m "Update documentation" --allow-empty
