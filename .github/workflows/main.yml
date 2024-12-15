@@ -37,8 +37,15 @@ jobs:
           # Create and switch to a new docs branch if it doesn't exist
           git checkout -B docs
           
-          # Force add all files (including untracked files)
-          git add -f .
+          # Remove everything except .git directory
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          
+          # Copy only website/docs content
+          mkdir -p docs
+          cp -r website/docs/* docs/
+          
+          # Force add docs directory
+          git add -f docs
           
           # Commit with --allow-empty in case there are no changes
           git commit -m "Update documentation" --allow-empty
