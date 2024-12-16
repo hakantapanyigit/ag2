@@ -382,7 +382,7 @@ def post_process_mdx(rendered_mdx: Path, source_notebooks: Path, front_matter: D
     # front_matter
     # ---
     # content
-    new_content = f"---\n{front_matter}---\n{content}"
+    new_content = f"{content}"
     with open(rendered_mdx, "w", encoding="utf-8") as f:
         f.write(new_content)
 
