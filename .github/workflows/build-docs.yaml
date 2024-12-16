@@ -37,9 +37,13 @@ jobs:
       - name: Build docs
         run: |
           set -ux
-          mkdir website/_extensions
+          mkdir -p website/_extensions
           cp -r docs-scripts/mintlify/ website/_extensions/
-          python docs-scripts/update-quarto.py
+          if [ -f "nbs/_quarto.yml" ]; then
+            python docs-scripts/update-quarto.py
+          else
+            echo "Skipping update-quarto.py since nbs/_quarto.yml does not exist."
+          fi
           echo "procs = nbdev_plotly.plotly:PlotlyProc" >> settings.ini
           nbdev_docs
 
