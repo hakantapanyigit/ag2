@@ -37,6 +37,7 @@ jobs:
       - name: Build docs
         run: |
           set -ux
+          pip install nbdev  # nbdev'i yüklüyoruz
           mkdir -p website/_extensions
           cp -r docs-scripts/mintlify/ website/_extensions/
           if [ -f "nbs/_quarto.yml" ]; then
