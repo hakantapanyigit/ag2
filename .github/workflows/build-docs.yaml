@@ -27,6 +27,7 @@ jobs:
         run: |
           set -ux
           pip install uv && uv pip install --system ".[all]"
+          pip install pyyaml  # PyYAML modülünü açıkça yükle
           mkdir website/_extensions
           cp -r docs-scripts/mintlify/ website/_extensions/
           python docs-scripts/update-quarto.py
