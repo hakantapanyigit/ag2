@@ -340,11 +340,11 @@ def post_process_mdx(rendered_mdx: Path, source_notebooks: Path, front_matter: D
     else:
         title_search_content = content
 
-    title_exists = title_search_content.find("\n# ") != -1
-    if not title_exists:
-        content = f"# {front_matter['title']}\n{content}"
+    # Başlık kontrolünü kaldırıyoruz ve başlık eklemesini yapmıyoruz
+    # title_exists = title_search_content.find("\n# ") != -1
+    # if not title_exists:
+    #     content = f"# {front_matter['title']}\n{content}"
 
-    # inject in content directly after the markdown title the word done
     # Find the end of the line with the title
     title_end = content.find("\n", content.find("#"))
 
@@ -376,6 +376,9 @@ def post_process_mdx(rendered_mdx: Path, source_notebooks: Path, front_matter: D
 
     # Dump front_matter to ysaml
     front_matter = yaml.dump(front_matter, default_flow_style=False)
+
+    if 'title' in front_matter:
+        del front_matter['title']
 
     # Rewrite the content as
     # ---
