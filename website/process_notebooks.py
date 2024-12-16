@@ -370,8 +370,8 @@ def post_process_mdx(rendered_mdx: Path, source_notebooks: Path, front_matter: D
         )
 
     # Remove title from front_matter before converting to yaml
-    if 'title' in front_matter:
-        front_matter.pop('title', None)
+    # if 'title' in front_matter:
+    #     front_matter.pop('title', None)
 
     # Dump front_matter to yaml
     front_matter_yaml = yaml.dump(front_matter, default_flow_style=False)
