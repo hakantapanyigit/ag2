@@ -340,11 +340,6 @@ def post_process_mdx(rendered_mdx: Path, source_notebooks: Path, front_matter: D
     else:
         title_search_content = content
 
-    # Başlık kontrolünü kaldırıyoruz ve başlık eklemesini yapmıyoruz
-    # title_exists = title_search_content.find("\n# ") != -1
-    # if not title_exists:
-    #     content = f"# {front_matter['title']}\n{content}"
-
     # Find the end of the line with the title
     title_end = content.find("\n", content.find("#"))
 
@@ -374,18 +369,19 @@ def post_process_mdx(rendered_mdx: Path, source_notebooks: Path, front_matter: D
             + content[title_end:]
         )
 
-    # Dump front_matter to ysaml
-    front_matter = yaml.dump(front_matter, default_flow_style=False)
-
+    # Remove title from front_matter before converting to yaml
     if 'title' in front_matter:
-        del front_matter['title']
+        front_matter.pop('title', None)
+
+    # Dump front_matter to yaml
+    front_matter_yaml = yaml.dump(front_matter, default_flow_style=False)
 
     # Rewrite the content as
     # ---
     # front_matter
     # ---
     # content
-    new_content = f"---\n{front_matter}---\n{content}"
+    new_content = f"---\n{front_matter_yaml}---\n{content}"
     with open(rendered_mdx, "w", encoding="utf-8") as f:
         f.write(new_content)
 
