@@ -340,14 +340,14 @@ def post_process_mdx(rendered_mdx: Path, source_notebooks: Path, front_matter: D
     else:
         title_search_content = content
 
-    # Başlık kontrolünü kaldırıyoruz ve başlık eklemesini yapmıyoruz
-    # title_exists = title_search_content.find("\n# ") != -1
-    # if not title_exists:
-    #     content = f"# {front_matter['title']}\n{content}"
+    title_exists = title_search_content.find("\n# ") != -1
+    if not title_exists:
+        content = f"# {front_matter['title']}\n{content}"
 
+    # inject in content directly after the markdown title the word done
     # Find the end of the line with the title
     title_end = content.find("\n", content.find("#"))
-    
+
     # Extract page title
     title = content[content.find("#") + 1 : content.find("\n", content.find("#"))].strip()
     # If there is a { in the title we trim off the { and everything after it

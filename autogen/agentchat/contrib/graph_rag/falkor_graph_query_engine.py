@@ -49,7 +49,6 @@ class FalkorGraphQueryEngine:
                 If None, FalkorDB will auto generate an ontology from the input docs.
         """
         self.name = name
-        self.ontology_table_name = name + "_ontology"
         self.host = host
         self.port = port
         self.username = username
@@ -66,7 +65,7 @@ class FalkorGraphQueryEngine:
         """
         if self.name in self.falkordb.list_graphs():
             try:
-                self.ontology = self._load_ontology_from_db()
+                self.ontology = self._load_ontology_from_db(self.name)
             except Exception:
                 warnings.warn("Graph Ontology is not loaded.")
 
@@ -104,8 +103,6 @@ class FalkorGraphQueryEngine:
                     sources=sources,
                     model=self.model,
                 )
-            # Save Ontology to graph for future access.
-            self._save_ontology_to_db(self.ontology)
 
             self.knowledge_graph = KnowledgeGraph(
                 name=self.name,
@@ -121,6 +118,9 @@ class FalkorGraphQueryEngine:
 
             # Establishing a chat session will maintain the history
             self._chat_session = self.knowledge_graph.chat_session()
+
+            # Save Ontology to graph for future access.
+            self._save_ontology_to_db(self.name, self.ontology)
         else:
             raise ValueError("No input documents could be loaded.")
 
@@ -149,31 +149,17 @@ class FalkorGraphQueryEngine:
 
         return GraphStoreQueryResult(answer=response["response"], results=[])
 
-    def delete(self) -> bool:
-        """
-        Delete graph and its data from database.
-        """
-        all_graphs = self.falkordb.list_graphs()
-        if self.name in all_graphs:
-            self.falkordb.select_graph(self.name).delete()
-        if self.ontology_table_name in all_graphs:
-            self.falkordb.select_graph(self.ontology_table_name).delete()
-        return True
+    def __get_ontology_storage_graph(self, graph_name: str) -> Graph:
+        ontology_table_name = graph_name + "_ontology"
+        return self.falkordb.select_graph(ontology_table_name)
 
-    def __get_ontology_storage_graph(self) -> Graph:
-        return self.falkordb.select_graph(self.ontology_table_name)
-
-    def _save_ontology_to_db(self, ontology: Ontology):
+    def _save_ontology_to_db(self, graph_name: str, ontology: Ontology):
         """
         Save graph ontology to a separate table with {graph_name}_ontology
         """
-        if self.ontology_table_name in self.falkordb.list_graphs():
-            raise ValueError("Knowledge graph {} is already created.".format(self.name))
-        graph = self.__get_ontology_storage_graph()
+        graph = self.__get_ontology_storage_graph(graph_name)
         ontology.save_to_graph(graph)
 
-    def _load_ontology_from_db(self) -> Ontology:
-        if self.ontology_table_name not in self.falkordb.list_graphs():
-            raise ValueError("Knowledge graph {} has not been created.".format(self.name))
-        graph = self.__get_ontology_storage_graph()
+    def _load_ontology_from_db(self, graph_name: str) -> Ontology:
+        graph = self.__get_ontology_storage_graph(graph_name)
         return Ontology.from_graph(graph)
