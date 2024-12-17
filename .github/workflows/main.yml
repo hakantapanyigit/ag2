@@ -55,11 +55,12 @@ jobs:
           python process_notebooks.py render  
 
       - name: Deploy to docs branch
+        working-directory: .
         run: |
           # Store docs content in a temporary location
           mkdir -p /tmp/docs-content
-          cp -r website/* /tmp/docs-content/
-          rm -rf website
+          cp -r website /tmp/docs-content/
+          #rm -rf website
           
           # Configure git
           git config --global user.name 'GitHub Actions'
