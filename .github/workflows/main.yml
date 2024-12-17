@@ -15,9 +15,6 @@ permissions:
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: website
     steps:
       - uses: actions/checkout@v4
         with:
@@ -46,9 +43,9 @@ jobs:
       - name: quarto install
         working-directory: ${{ runner.temp }}
         run: |
-          wget -q https://github.com/quarto-dev/quarto-cli/releases/download/v1.5.23/quarto-1.5.23-linux-amd64.tar.gz
-          tar -xzf quarto-1.5.23-linux-amd64.tar.gz
-          echo "$(pwd)/quarto-1.5.23/bin/" >> $GITHUB_PATH
+          wget -q https://github.com/quarto-dev/quarto-cli/releases/download/v1.6.39/quarto-1.6.39-linux-amd64.tar.gz
+          tar -xzf quarto-1.6.39-linux-amd64.tar.gz
+          echo "$(pwd)/quarto-1.6.39/bin/" >> $GITHUB_PATH
           
       - name: Process notebooks
         run: |
@@ -59,7 +56,7 @@ jobs:
         run: |
           # Store docs content in a temporary location
           mkdir -p /tmp/docs-content
-          cp -r ./* /tmp/docs-content/
+          cp -r website/* /tmp/docs-content/
           
           # Configure git
           git config --global user.name 'GitHub Actions'
