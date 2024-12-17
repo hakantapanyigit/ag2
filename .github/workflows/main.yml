@@ -73,7 +73,7 @@ jobs:
           git rm -rf .
           
           # Copy the saved docs content directly to root
-          cp -r /tmp/docs-content/* .
+          cp -r /tmp/docs-content/website/* .
           
           # Add all files
           git add .
