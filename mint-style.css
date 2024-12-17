@@ -436,6 +436,6 @@ table {
   border-radius: 0 !important;
 }
 
-.header h1 {
+#header h1 {
   max-width: 100%;
 }
