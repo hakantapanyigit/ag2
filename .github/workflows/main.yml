@@ -60,7 +60,7 @@ jobs:
           # Store docs content in a temporary location
           mkdir -p /tmp/docs-content
           cp -r website /tmp/docs-content/
-          #rm -rf website
+          rm -rf website
           
           # Configure git
           git config --global user.name 'GitHub Actions'
