@@ -435,3 +435,7 @@ table {
 .codeblock-dark {
   border-radius: 0 !important;
 }
+
+.header h1 {
+  max-width: 100%;
+}
