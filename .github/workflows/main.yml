@@ -59,7 +59,7 @@ jobs:
         run: |
           # Store docs content in a temporary location
           mkdir -p /tmp/docs-content
-          cp -r website/* /tmp/docs-content/website/
+          cp -r ./* /tmp/docs-content/
           
           # Configure git
           git config --global user.name 'GitHub Actions'
@@ -72,7 +72,7 @@ jobs:
           git rm -rf .
           
           # Copy the saved docs content directly to root
-          cp -r /tmp/docs-content/website/* .
+          cp -r /tmp/docs-content/* .
           
           # Add all files
           git add .
