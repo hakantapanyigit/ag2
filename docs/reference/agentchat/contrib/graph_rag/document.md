@@ -1,0 +1,22 @@
+---
+sidebar_label: document
+title: agentchat.contrib.graph_rag.document
+---
+
+## DocumentType
+
+```python
+class DocumentType(Enum)
+```
+
+Enum for supporting document type.
+
+## Document
+
+```python
+@dataclass
+class Document()
+```
+
+A wrapper of graph store query results.
+

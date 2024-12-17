@@ -1,0 +1,13 @@
+---
+sidebar_label: utils
+title: coding.utils
+---
+
+### silence\_pip
+
+```python
+def silence_pip(code: str, lang: str) -> str
+```
+
+Apply -qqq flag to pip install commands.
+
