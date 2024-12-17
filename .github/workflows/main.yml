@@ -52,7 +52,6 @@ jobs:
           python process_notebooks.py render
 
       - name: Deploy to docs branch
-        working-directory: .
         run: |
           # Store docs content in a temporary location
           mkdir -p /tmp/docs-content
