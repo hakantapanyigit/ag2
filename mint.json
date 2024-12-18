@@ -46,6 +46,10 @@
       "url": "docs/notebooks"
     },
     {
+      "name": "Api Reference",
+      "url": "docs/reference"
+    },
+    {
       "name": "Community Talks",
       "url": "talks"
     },
@@ -162,10 +166,6 @@
         "docs/topics/task_decomposition",
         "docs/FAQ"
       ]
-    },
-    {
-      "group": "",
-      "pages": ["docs/reference/agentchat/conversable_agent"]
     },
     {
       "group": "AutoGen Studio",
