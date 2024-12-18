@@ -164,6 +164,10 @@
       ]
     },
     {
+      "group": "",
+      "pages": ["docs/reference/agentchat/conversable_agent"]
+    },
+    {
       "group": "AutoGen Studio",
       "pages": [
         "docs/autogen-studio/getting-started",
