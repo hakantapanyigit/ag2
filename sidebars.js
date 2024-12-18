@@ -148,7 +148,27 @@ module.exports = {
     "Migration-Guide",
   ],
   // pydoc-markdown auto-generated markdowns from docstrings
-  referenceSideBar: [require("./docs/reference/sidebar.json")],
+  referenceSideBar: [
+    {
+      type: "category",
+      label: "API Reference",
+      items: [
+        {
+          type: "doc",
+          id: "reference/agentchat/conversable_agent",
+          label: "ConversableAgent"
+        },
+        // Diğer API referans sayfalarını buraya ekleyebilirsiniz
+      ],
+      link: {
+        type: "generated-index",
+        title: "API Reference",
+        description: "AutoGen API Reference documentation",
+        slug: "reference",
+      },
+    },
+    require("./docs/reference/sidebar.json")
+  ],
   notebooksSidebar: [
     {
       type: "category",
