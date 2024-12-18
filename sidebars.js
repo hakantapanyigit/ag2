@@ -11,7 +11,7 @@
 
 module.exports = {
   docsSidebar: [
-    "Getting-Started",
+    "Getting-Startedddd",
     {
       type: "category",
       label: "Installation",
