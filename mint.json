@@ -65,6 +65,10 @@
       "pages": ["docs/Getting-Started"]
     },
     {
+      "group": "API Reference",
+      "pages": ["docs/reference/agentchat/assistant_agent"]
+    },
+    {
       "group": "Installation",
       "pages": [
         "docs/installation/Installation",
