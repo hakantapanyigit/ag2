@@ -803,3 +803,12 @@ table {
 .codeblock-dark {
   border-radius: 0 !important;
 }
+
+p a {
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 100%;
+  display: inline-block;
+}
